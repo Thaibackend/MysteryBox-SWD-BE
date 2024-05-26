@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   PackageOrder.init(
     {
-      kidId: DataTypes.UUID,
-      packageId: DataTypes.UUID,
+      kidId: DataTypes.BIGINT,
+      packageId: DataTypes.BIGINT,
       totalPrice: DataTypes.STRING,
       nameOfAdult: DataTypes.STRING,
       nameOfKid: DataTypes.STRING,

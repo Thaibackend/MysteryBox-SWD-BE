@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   KidProfile.init(
     {
-      userId: DataTypes.UUID,
+      userId: DataTypes.BIGINT,
       fullName: DataTypes.STRING,
       descriptionHobby: DataTypes.STRING,
       yob: DataTypes.STRING,

@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable("Packages", {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.fn("UUID"),
+        type: Sequelize.BIGINT,
       },
       image: {
         type: Sequelize.STRING,

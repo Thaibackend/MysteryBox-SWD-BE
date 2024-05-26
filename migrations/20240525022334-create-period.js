@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable("Periods", {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.fn("UUID"),
+        type: Sequelize.BIGINT,
       },
       season: {
         type: Sequelize.ENUM(["Spring", "Summer", "Fall", "Winter"]),

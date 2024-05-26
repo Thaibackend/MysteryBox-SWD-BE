@@ -5,12 +5,12 @@ module.exports = {
     await queryInterface.createTable("PackageOrders", {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.fn("UUID"),
+        type: Sequelize.BIGINT,
       },
       kidId: {
-        type: Sequelize.UUID,
+        type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: "KidProfiles",
@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       packageId: {
-        type: Sequelize.UUID,
+        type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: "Packages",
