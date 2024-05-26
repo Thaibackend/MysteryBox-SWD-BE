@@ -2,26 +2,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Packages", {
+    await queryInterface.createTable("Periods", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.fn("UUID"),
       },
-      image: {
+      season: {
+        type: Sequelize.ENUM(["Spring", "Summer", "Fall", "Winter"]),
+        defaultValue: "Spring",
+        unique: true,
+      },
+      startDate: {
         type: Sequelize.STRING,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      description: {
-        type: Sequelize.STRING,
-      },
-      price: {
-        type: Sequelize.STRING,
-      },
-      numberOfSend: {
+      endDate: {
         type: Sequelize.STRING,
       },
       status: {
@@ -39,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Packages");
+    await queryInterface.dropTable("Periods");
   },
 };
