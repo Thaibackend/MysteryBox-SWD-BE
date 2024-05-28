@@ -40,6 +40,7 @@ module.exports = {
       }
 
       return res.json({
+        seasonId: period[0].id,
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
       });
@@ -47,7 +48,7 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
-  updatePeriod: async (req, res, next) => {
+  setPeriod: async (req, res, next) => {
     try {
       const body = req.body;
       const periodId = req.params.id;
@@ -55,10 +56,21 @@ module.exports = {
       if (!existedPeriod) {
         return next(createError(res, 404, "Không tìm thấy kỳ tương ứng"));
       }
-      await existedPeriod.update(body);
+
+      const periods = await db.Period.findAll();
+      const setPeriod = periods.map(async (period) => {
+        if (period.id === periodId) {
+          await period.update(body);
+        } else {
+          await period.update({ status: 0 });
+        }
+      });
+
+      await Promise.all(setPeriod);
+
       return res.json({
         success: true,
-        message: "Cập nhật kỳ tặng quà thành công",
+        message: "set kỳ tặng quà thành công",
       });
     } catch (error) {
       return next(createError(res, 500, error.message));
@@ -85,6 +97,19 @@ module.exports = {
           message: `Vô hiệu hóa kỳ ${period[0].season}`,
         });
       }
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
+  getCurrentPeriod: async (req, res, next) => {
+    try {
+      const periodCurrent = await db.Period.findOne({ where: { status: 1 } });
+      return res.json({
+        success: true,
+        message: `Mùa hiện tại là ${periodCurrent.season}`,
+        periodCurrent,
+      });
     } catch (error) {
       return next(createError(res, 500, error.message));
     }

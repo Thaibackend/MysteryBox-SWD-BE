@@ -8,4 +8,11 @@ router.post(
   verify.verifyToken,
   PackageOrderController.orderPackage
 );
+
+router.get(
+  "/get-packageorder",
+  verify.verifyToken,
+  PackageOrderController.getPackageOrderByUserId
+);
+module.expo;
 module.exports = router;

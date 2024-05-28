@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
-  const rawToken = token.split(" ")[1];
-  if (!token) return rext(createError(res, 403, "Không cung cấp token"));
+  const rawToken = token?.split(" ")[1];
+  if (!token) return next(createError(res, 403, "Không cung cấp token"));
   jwt.verify(rawToken, process.env.JWT_SECRET, (error, decode) => {
     if (error) {
       return next(createError(res, 403, "Token không hợp lế"));

@@ -1,28 +1,38 @@
 "use strict";
+
+const { DataTypes } = require("sequelize");
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Periods", {
+    await queryInterface.createTable("BoxInPeriods", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.fn("UUID"),
       },
-      season: {
-        type: Sequelize.ENUM(["Spring", "Summer", "Fall", "Winter"]),
-        defaultValue: "Spring",
-        unique: true,
+      periodId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "Periods",
+          key: "id",
+        },
       },
-      startDate: {
+      boxId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "MysteryBoxes",
+          key: "id",
+        },
+      },
+      quantity: {
         type: Sequelize.STRING,
       },
-      endDate: {
-        type: Sequelize.STRING,
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
+      used: {
+        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Periods");
+    await queryInterface.dropTable("BoxInPeriods");
   },
 };

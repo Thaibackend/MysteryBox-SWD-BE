@@ -2,59 +2,44 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("KidProfiles", {
+    await queryInterface.createTable("PackageInPeriods", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.fn("UUID"),
       },
-      userId: {
+      periodId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "Periods",
           key: "id",
         },
       },
-      themeId: {
+      boxId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "Themes",
+          model: "MysteryBoxes",
+          key: "id",
+        },
+      },
+      packageOrderId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "PackageOrders",
           key: "id",
         },
       },
 
-      fullName: {
-        type: Sequelize.STRING,
-      },
-      descriptionHobby: {
-        type: Sequelize.STRING,
-        required: true,
-      },
-      gender: {
-        type: Sequelize.ENUM(["MALE", "FEMALE", "OTHER"]),
-        defaultValue: "MALE",
-      },
-      yob: {
-        type: Sequelize.STRING,
-      },
-      color: {
-        type: Sequelize.STRING,
-      },
-      type: {
-        type: Sequelize.STRING,
-      },
-      material: {
-        type: Sequelize.STRING,
-      },
-      toyOrigin: {
+      endBy: {
         type: Sequelize.STRING,
       },
       status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
+        type: Sequelize.ENUM(["PENDING", "FINISHED"]),
+        defaultValue: "PENDING",
       },
       createdAt: {
         allowNull: false,
@@ -67,6 +52,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("KidProfiles");
+    await queryInterface.dropTable("PackageInPeriods");
   },
 };

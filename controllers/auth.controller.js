@@ -41,7 +41,7 @@ module.exports = {
           createError(res, 401, "Mật khẩu hoặc tài khoản không đúng")
         );
       const isBanned = await db.User.findOne({
-        where: { username: body.username, status: 0 },
+        where: { username: body.username, status: false },
       });
       if (isBanned)
         return next(

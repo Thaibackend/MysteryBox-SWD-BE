@@ -1,31 +1,18 @@
 {
     "development": {
-      "username": "db_mysterybox_user",
-      "password": "nKKEctwB7HgLT7ztoV88idYXuzK9P2xA",
-      "database": "db_mysterybox",
-      "host": "dpg-cp9k79dds78s73cjbaq0-a.singapore-postgres.render.com",
-      "dialect": "postgres",
-      "logging": false,
-      "dialectOptions": {
-        "ssl": {
-          "require": true,
-          "rejectUnauthorized": false
-        }
-      }
+      "username": "root",
+      "password": null,
+      "database": "Mysterybox",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "logging": false
     },
   
     "production": {
-      "username": "db_mysterybox_user",
-      "password": "nKKEctwB7HgLT7ztoV88idYXuzK9P2xA",
-      "database": "db_mysterybox",
-      "host": "dpg-cp9k79dds78s73cjbaq0-a.singapore-postgres.render.com",
-      "dialect": "postgres",
-      "logging": false,
-      "dialectOptions": {
-        "ssl": {
-          "require": true,
-          "rejectUnauthorized": false
-        }
-      }
+      "username": "root",
+      "password": null,
+      "database": "database_production",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
     }
   }

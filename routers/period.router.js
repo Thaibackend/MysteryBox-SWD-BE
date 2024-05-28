@@ -3,6 +3,7 @@ const PeriodController = require("../controllers/period.controller");
 const verify = require("../middlewares/verifyToken");
 const router = express.Router();
 
+router.get("/get-current-period", PeriodController.getCurrentPeriod);
 router.get(
   "/set-date/:id",
   verify.verifyToken,
@@ -18,10 +19,10 @@ router.post(
 );
 
 router.patch(
-  "/update-period/:id",
+  "/set-period/:id",
   verify.verifyToken,
   verify.isStaff,
-  PeriodController.updatePeriod
+  PeriodController.setPeriod
 );
 
 router.patch(
