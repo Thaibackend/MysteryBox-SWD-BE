@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable("PackageOrders", {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.fn("UUID"),
+        type: Sequelize.INTEGER,
       },
       kidId: {
         type: Sequelize.UUID,
@@ -44,8 +44,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
+        type: Sequelize.ENUM(["Pending", "Cancel", "Finished"]),
+        defaultValue: "Pending",
       },
       createdAt: {
         allowNull: false,

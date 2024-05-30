@@ -21,7 +21,9 @@ module.exports = {
   getProfileByUserId: async (req, res, next) => {
     try {
       const user = req.user;
-      const kidProfiles = await db.KidProfile.findAll();
+      const kidProfiles = await db.KidProfile.findAll({
+        where: { status: true },
+      });
       const kidProfilesByUserId = kidProfiles.filter(
         (profile) => profile.userId === user.userId
       );

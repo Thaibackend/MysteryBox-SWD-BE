@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       email: DataTypes.STRING,
       additionalNotes: DataTypes.STRING,
-      status: DataTypes.BOOLEAN,
+      status: {
+        type: DataTypes.ENUM,
+        values: ["Pending", "Cancel", "Finished"],
+      },
     },
     {
       sequelize,

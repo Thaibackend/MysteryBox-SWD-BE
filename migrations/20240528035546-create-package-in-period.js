@@ -26,7 +26,7 @@ module.exports = {
         },
       },
       packageOrderId: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "PackageOrders",

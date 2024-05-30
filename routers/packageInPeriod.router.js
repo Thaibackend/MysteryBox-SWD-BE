@@ -9,4 +9,10 @@ router.post(
   PackageInPeriodController.createPackageInPeriod
 );
 
+router.get(
+  "/get-packageinperiod-by-packageOrder/:id",
+  verify.verifyToken,
+  PackageInPeriodController.getPackageInPeriodByPackageOrder
+);
+
 module.exports = router;

@@ -10,6 +10,7 @@ module.exports = {
         ...body,
         packageId: packageId,
       });
+
       return res.status(201).json({
         success: true,
         messsage: "Thêm package vào giỏ hàng thành công",
@@ -19,6 +20,7 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+
   getPackageOrderByUserId: async (req, res, next) => {
     try {
       const user = req.user;
@@ -43,24 +45,3 @@ module.exports = {
     }
   },
 };
-
-// const user = req.user; // userid
-
-// // Lấy tất cả kid profiles
-// const kidProfiles = await db.KidProfile.findAll(); // kid profiles
-
-// // Lọc các kid profiles theo userId
-// const kidIds = kidProfiles
-//   .filter(kidProfile => kidProfile.userId === user.userId)
-//   .map(kidProfile => kidProfile.id); // Giả sử id là khóa chính của KidProfile
-
-// // Tìm các package orders bởi kidIds
-// const packageOrders = await db.PackageOrder.findAll({
-//   where: {
-//     kidId: {
-//       [db.Sequelize.Op.in]: kidIds
-//     }
-//   }
-// });
-
-// console.log(packageOrders);

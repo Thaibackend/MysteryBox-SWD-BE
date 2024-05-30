@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       periodId: DataTypes.UUID,
       boxId: DataTypes.UUID,
-      packageOrderId: DataTypes.UUID,
+      packageOrderId: DataTypes.INTEGER,
       endBy: DataTypes.STRING,
       status: {
         type: DataTypes.ENUM,
