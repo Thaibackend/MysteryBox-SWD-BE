@@ -5,6 +5,10 @@ const sequelize = new Sequelize("Mysterybox", "root", null, {
   host: "localhost",
   dialect: "mysql",
   logging: false,
+  port: 3306,
+  dialectOptions: {
+    connectTimeout: 20000, // Adjust the timeout as needed
+  },
 });
 
 const connectDatabase = async () => {
@@ -12,7 +16,11 @@ const connectDatabase = async () => {
     await sequelize.authenticate();
     console.log("Connect DB successful");
   } catch (error) {
-    console.log("Connect DB fail " + error.message);
+    console.error("Unable to connect to the database:", {
+      message: error.message,
+      stack: error.stack,
+      original: error.original,
+    });
   }
 };
 

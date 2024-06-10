@@ -21,6 +21,20 @@ module.exports = {
     }
   },
 
+  getPackageOrderByIdPk: async (req, res, next) => {
+    try {
+      const packageOrderId = req.params.id;
+      const packageOrder = await db.PackageOrder.findByPk(packageOrderId);
+      return res.json({
+        success: true,
+        message: "Package Order",
+        packageOrder,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
   getPackageOrderByUserId: async (req, res, next) => {
     try {
       const user = req.user;
@@ -39,6 +53,28 @@ module.exports = {
         success: true,
         message: "Lấy dữ liệu package order thành công",
         packageOrders,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
+  pushPackageInPeriod: async (req, res, next) => {
+    try {
+      const packageOrderId = req.params.id;
+      const body = req.body;
+      const packageOrder = await db.PackageOrder.findByPk(packageOrderId);
+      const pushPackageOrder = [
+        ...packageOrder.packageInPeriodIds,
+        body.packageInPeriodId,
+      ];
+      const updatePackageOrder = await packageOrder.update({
+        packageInPeriodIds: pushPackageOrder,
+      });
+      return res.json({
+        success: true,
+        message: "Thêm gói package nhỏ thành công",
+        packageOrder: updatePackageOrder,
       });
     } catch (error) {
       return next(createError(res, 500, error.message));

@@ -20,7 +20,16 @@ module.exports = (sequelize, DataTypes) => {
       nameOfKid: DataTypes.STRING,
       phone: DataTypes.STRING,
       email: DataTypes.STRING,
-      additionalNotes: DataTypes.STRING,
+      packageInPeriodIds: {
+        type: DataTypes.TEXT,
+        get() {
+          const rawValue = this.getDataValue("packageInPeriodIds");
+          return rawValue ? JSON.parse(rawValue) : [];
+        },
+        set(array) {
+          this.setDataValue("packageInPeriodIds", JSON.stringify(array));
+        },
+      },
       status: {
         type: DataTypes.ENUM,
         values: ["Pending", "Cancel", "Finished"],

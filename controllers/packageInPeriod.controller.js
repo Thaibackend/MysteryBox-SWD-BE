@@ -31,4 +31,16 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+  getAllPackageInPeriod: async (req, res) => {
+    try {
+      const packageInPeriods = await db.PackageInPeriod.findAll();
+      return res.json({
+        success: true,
+        message: "Lấy data thành công",
+        packageInPeriods,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };

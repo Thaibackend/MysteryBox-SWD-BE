@@ -15,4 +15,10 @@ router.get(
   PackageInPeriodController.getPackageInPeriodByPackageOrder
 );
 
+router.get(
+  "/get-all-packageinperiod",
+  verify.verifyToken,
+  PackageInPeriodController.getAllPackageInPeriod
+);
+
 module.exports = router;

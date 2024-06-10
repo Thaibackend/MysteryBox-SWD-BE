@@ -2,50 +2,65 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("PackageOrders", {
+    await queryInterface.createTable("Products", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      kidId: {
+      boxId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "KidProfiles",
+          model: "MysteryBoxes",
           key: "id",
         },
       },
-      packageId: {
+      themeId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "Packages",
+          model: "Themes",
           key: "id",
         },
       },
-      totalPrice: {
+      name: {
         type: Sequelize.STRING,
       },
-      nameOfAdult: {
-        type: Sequelize.STRING,
-      },
-      nameOfKid: {
-        type: Sequelize.STRING,
-      },
-      phone: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      packageInPeriodIds: {
+      images: {
         type: Sequelize.TEXT,
       },
+      description: {
+        type: Sequelize.STRING,
+      },
+      price: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      quantity: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      gender: {
+        type: Sequelize.ENUM(["female", "male", "all"]),
+        defaultValue: "all",
+      },
+      color: {
+        type: Sequelize.STRING,
+      },
+      type: {
+        type: Sequelize.STRING,
+      },
+      material: {
+        type: Sequelize.STRING,
+      },
+      origin: {
+        type: Sequelize.STRING,
+      },
       status: {
-        type: Sequelize.ENUM(["Pending", "Cancel", "Finished"]),
-        defaultValue: "Pending",
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
@@ -58,6 +73,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("PackageOrders");
+    await queryInterface.dropTable("Products");
   },
 };

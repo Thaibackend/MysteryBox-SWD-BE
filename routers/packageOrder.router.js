@@ -10,9 +10,21 @@ router.post(
 );
 
 router.get(
-  "/get-packageorder",
+  "/get-packageorderbyuserid",
   verify.verifyToken,
   PackageOrderController.getPackageOrderByUserId
+);
+
+router.get(
+  "/get-packageorderbyidpk/:id",
+  verify.verifyToken,
+  PackageOrderController.getPackageOrderByIdPk
+);
+
+router.patch(
+  "/push-packageinperiod/:id",
+  verify.verifyToken,
+  PackageOrderController.pushPackageInPeriod
 );
 module.expo;
 module.exports = router;
