@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       boxId: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "MysteryBoxes",
@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       themeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "Themes",

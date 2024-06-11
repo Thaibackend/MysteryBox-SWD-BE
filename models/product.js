@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-      boxId: DataTypes.UUID,
-      themeId: DataTypes.UUID,
+      boxId: DataTypes.INTEGER,
+      themeId: DataTypes.INTEGER,
       name: DataTypes.STRING,
       images: {
         type: DataTypes.TEXT,
