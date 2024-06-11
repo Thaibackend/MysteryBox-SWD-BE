@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.fn("UUID"),
+        defaultValue: Sequelize.UUIDV4,
       },
       season: {
         type: Sequelize.ENUM(["Spring", "Summer", "Fall", "Winter"]),

@@ -1,15 +1,23 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("Mysterybox", "root", null, {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-  port: 3306,
-  dialectOptions: {
-    connectTimeout: 20000, // Adjust the timeout as needed
-  },
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    logging: false,
+    port: 5432,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  }
+);
 
 const connectDatabase = async () => {
   try {

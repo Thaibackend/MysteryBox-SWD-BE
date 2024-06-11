@@ -1,18 +1,29 @@
 {
     "development": {
-      "username": "root",
-      "password": null,
-      "database": "Mysterybox",
-      "host": "127.0.0.1",
-      "dialect": "mysql",
-      "logging": false
+      "username": "database_be_swd_user",
+      "password": "GnTM0ABf4U97C5PqCk8x2VugG8Xi9k9Y",
+      "database": "database_be_swd",
+      "host": "dpg-cpjr0ff109ks73eqtmbg-a.singapore-postgres.render.com",
+      "dialect": "postgres",
+      "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
     },
   
     "production": {
-      "username": "root",
-      "password": null,
-      "database": "database_production",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
+      "username": "database_be_swd_user",
+      "password": "GnTM0ABf4U97C5PqCk8x2VugG8Xi9k9Y",
+      "database": "database_be_swd",
+      "host": "dpg-cpjr0ff109ks73eqtmbg-a.singapore-postgres.render.com",
+      "dialect": "postgres",
+      "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
     }
   }
