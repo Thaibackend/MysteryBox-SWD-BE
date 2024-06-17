@@ -19,7 +19,6 @@ module.exports = {
       },
       themeId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: "Themes",
           key: "id",
