@@ -18,7 +18,7 @@ router.post(
   PeriodController.createPeriod
 );
 
-router.patch(
+router.get(
   "/set-period/:id",
   verify.verifyToken,
   verify.isStaff,

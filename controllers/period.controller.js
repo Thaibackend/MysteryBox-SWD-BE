@@ -50,7 +50,6 @@ module.exports = {
   },
   setPeriod: async (req, res, next) => {
     try {
-      const body = req.body;
       const periodId = req.params.id;
       const existedPeriod = await db.Period.findByPk(periodId);
       if (!existedPeriod) {
@@ -58,15 +57,17 @@ module.exports = {
       }
 
       const periods = await db.Period.findAll();
-      const setPeriod = periods.map(async (period) => {
-        if (period.id === periodId) {
-          await period.update(body);
-        } else {
-          await period.update({ status: 0 });
-        }
-      });
+      await db.sequelize.transaction(async (t) => {
+        const updatePromises = periods.map(async (period) => {
+          if (period.id === parseInt(periodId, 10)) {
+            return period.update({ status: true }, { transaction: t });
+          } else {
+            return period.update({ status: false }, { transaction: t });
+          }
+        });
 
-      await Promise.all(setPeriod);
+        await Promise.all(updatePromises);
+      });
 
       return res.json({
         success: true,
@@ -107,9 +108,15 @@ module.exports = {
       const periodCurrent = await db.Period.findOne({
         where: { status: true },
       });
+      if (!periodCurrent) {
+        return res.status(404).json({
+          success: false,
+          message: "Không có kỳ hiện tại",
+        });
+      }
       return res.json({
         success: true,
-        message: `Mùa hiện tại là ${periodCurrent.season}`,
+        message: `Mùa hiện tại là ${periodCurrent?.season}`,
         periodCurrent,
       });
     } catch (error) {
