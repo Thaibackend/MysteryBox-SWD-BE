@@ -104,7 +104,9 @@ module.exports = {
 
   getCurrentPeriod: async (req, res, next) => {
     try {
-      const periodCurrent = await db.Period.findOne({ where: { status: 1 } });
+      const periodCurrent = await db.Period.findOne({
+        where: { status: true },
+      });
       return res.json({
         success: true,
         message: `Mùa hiện tại là ${periodCurrent.season}`,
