@@ -26,5 +26,12 @@ router.patch(
   verify.verifyToken,
   PackageOrderController.pushPackageInPeriod
 );
+
+router.get(
+  "/get-all-order",
+  verify.verifyToken,
+  verify.isStaff,
+  PackageOrderController.getAllOrder
+);
 module.expo;
 module.exports = router;

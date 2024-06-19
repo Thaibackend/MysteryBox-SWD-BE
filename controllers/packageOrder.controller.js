@@ -59,6 +59,15 @@ module.exports = {
     }
   },
 
+  getAllOrder: async (req, res, next) => {
+    try {
+      const orders = await db.PackageOrder.findAll();
+      return res.json({ success: true, orders });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
   pushPackageInPeriod: async (req, res, next) => {
     try {
       const packageOrderId = req.params.id;
