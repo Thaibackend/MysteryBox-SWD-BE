@@ -138,50 +138,50 @@ module.exports = {
   randomProduct: async (req, res, next) => {
     try {
       const products = await db.Product.findAll();
-      const { color, origin, gender, material } = req.body;
-      const filtersProducts = products.filter((product) => {
+      const kidId = req.params.kidId;
+      const packageId = req.params.packageId;
+      const packageCurrent = await db.Package.findByPk(packageId);
+      const kidCurrent = await db.KidProfile.findByPk(kidId);
+      const filteredProducts = products.filter((product) => {
         let matchedAttributes = 0;
 
-        if (color && product.color === color) {
+        if (kidCurrent && product.color === kidCurrent?.color) {
           matchedAttributes++;
         }
 
-        if (origin && product.origin === origin) {
+        if (kidCurrent && product.origin === kidCurrent?.toyOrigin) {
           matchedAttributes++;
         }
 
-        if (gender && product.gender === gender) {
+        if (kidCurrent && product.gender === kidCurrent?.gender) {
           matchedAttributes++;
         }
 
-        if (material && product.material.includes(material)) {
+        if (kidCurrent && product.material.includes(kidCurrent?.material)) {
           matchedAttributes++;
         }
 
         return matchedAttributes >= 2;
       });
-      const productRandomAll = weightedRandomProduct(products);
-      if (filtersProducts.length === 0) {
-        return res.json({
-          success: true,
-          message: "Sản phẩm của bạn",
-          product: productRandomAll,
-        });
+      let resultProducts = [...filteredProducts];
+      if (filteredProducts.length < packageCurrent?.numberOfSend) {
+        const remainingProducts = products.filter(
+          (product) => !filteredProducts.includes(product)
+        );
+        while (
+          resultProducts.length < packageCurrent?.numberOfSend &&
+          remainingProducts.length > 0
+        ) {
+          const randomIndex = Math.floor(
+            Math.random() * remainingProducts.length
+          );
+          const randomProduct = remainingProducts.splice(randomIndex, 1)[0];
+          resultProducts.push(randomProduct);
+        }
       }
-      const selectedProduct = weightedRandomProduct(filtersProducts);
-      if (selectedProduct) {
-        return res.json({
-          success: true,
-          message: "Sản phẩm của bạn",
-          product: selectedProduct,
-        });
-      } else {
-        return res.json({
-          success: true,
-          message: "Sản phẩm của bạn",
-          product: productRandomAll,
-        });
-      }
-    } catch (error) {}
+      res.json({ success: true, renderProducts: resultProducts });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
   },
 };
