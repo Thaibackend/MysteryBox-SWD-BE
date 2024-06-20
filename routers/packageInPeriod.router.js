@@ -22,7 +22,7 @@ router.get(
 );
 
 router.get(
-  "/add-product-packageinperiod/:productId/:packageInPeriodId",
+  "/add-product-packageinperiod/:productId/:packageOrderId",
   PackageInPeriodController.addProductPackageInPeriod
 );
 

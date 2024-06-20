@@ -46,11 +46,23 @@ module.exports = {
 
   addProductPackageInPeriod: async (req, res, next) => {
     try {
-      const { productId, packageInPeriodId } = req.params;
-      const packageInPeriod = await db.PackageInPeriod.findByPk(
-        packageInPeriodId
+      const { productId, packageOrderId } = req.params;
+      const packageInPeriods = await db.PackageInPeriod.findAll();
+      const matchingPackageOrder = packageInPeriods.filter(
+        (el) => el.packageOrderId == packageOrderId
       );
-      await packageInPeriod.update({ productId });
+      const notHasProduct = matchingPackageOrder.filter(
+        (el) => el.productId === null
+      );
+
+      if (notHasProduct.length > 0) {
+        await Promise.all(
+          notHasProduct.map(async (item) => {
+            item.productId = productId;
+            await item.save();
+          })
+        );
+      }
       return res.json({
         success: true,
         message: "Chọn sản phẩm gửi thành công",
