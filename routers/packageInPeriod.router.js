@@ -26,4 +26,9 @@ router.get(
   PackageInPeriodController.addProductPackageInPeriod
 );
 
+router.patch(
+  "/update-status-packageinperiod/:packageInPeriodId",
+  PackageInPeriodController.updateStatusOrder
+);
+
 module.exports = router;

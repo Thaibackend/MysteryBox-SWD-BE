@@ -59,6 +59,7 @@ module.exports = {
         await Promise.all(
           notHasProduct.map(async (item) => {
             item.productId = productId;
+            item.openingDate = new Date();
             await item.save();
           })
         );
@@ -66,6 +67,41 @@ module.exports = {
       return res.json({
         success: true,
         message: "Chọn sản phẩm gửi thành công",
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
+  updateStatusOrder: async (req, res, next) => {
+    try {
+      const { status } = req.body;
+      const { packageInPeriodId } = req.params;
+      const packgeInPeriod = await db.PackageInPeriod.findByPk(
+        packageInPeriodId
+      );
+      if (!packgeInPeriod) {
+        return next(createError(res, 404, "Không tìm thấy"));
+      }
+
+      const currentDate = new Date();
+      if (status === "packageDate") {
+        packgeInPeriod.packagingDate = currentDate;
+      } else if (status === "deliveryDate") {
+        packgeInPeriod.deliveryDate = currentDate;
+      } else if (status === "confirmDate") {
+        packgeInPeriod.confirmDate = currentDate;
+      } else {
+        return next(
+          createError(res, 400, "Trạng thái truyền xuống không hợp lệ")
+        );
+      }
+
+      await packgeInPeriod.save();
+
+      return res.json({
+        success: true,
+        message: "Trạng thái cập nhật thành công",
       });
     } catch (error) {
       return next(createError(res, 500, error.message));
