@@ -6,6 +6,7 @@ module.exports = {
     try {
       const body = req.body;
       const packageId = req.params.id;
+      console.log(body);
       const newOrder = await db.PackageOrder.create({
         ...body,
         packageId: packageId,
@@ -84,6 +85,41 @@ module.exports = {
         success: true,
         message: "Thêm gói package nhỏ thành công",
         packageOrder: updatePackageOrder,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+
+  pushProductOrder: async (req, res, next) => {
+    try {
+      const { packageOrderId } = req.params;
+      const packageOrder = await db.PackageOrder.findByPk(packageOrderId);
+      const plainPackageOrder = packageOrder.get({ plain: true });
+      const packageInPeriods = await db.PackageInPeriod.findAll();
+      const matchingPeriods = packageInPeriods.filter(
+        (el) => el.packageOrderId == packageOrderId
+      );
+      const periodsWithProduct = matchingPeriods.filter(
+        (el) => el.productId !== null
+      );
+
+      if (periodsWithProduct.length === 0) {
+        return next(createError(res, 404, "Không khớp với cái nào"));
+      }
+      let packageInPeriodIds = [];
+      periodsWithProduct.forEach((period) => {
+        if (!packageInPeriodIds.includes(period.id)) {
+          packageInPeriodIds.push(period.id);
+        }
+      });
+      packageOrder.packageInPeriodIds = packageInPeriodIds;
+      await packageOrder.save();
+
+      return res.json({
+        success: true,
+        message: "Thêm PeriodId vào thành công",
+        packageOrder,
       });
     } catch (error) {
       return next(createError(res, 500, error.message));

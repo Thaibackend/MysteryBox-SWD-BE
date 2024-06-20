@@ -21,4 +21,9 @@ router.get(
   PackageInPeriodController.getAllPackageInPeriod
 );
 
+router.get(
+  "/add-product-packageinperiod/:productId/:packageInPeriodId",
+  PackageInPeriodController.addProductPackageInPeriod
+);
+
 module.exports = router;

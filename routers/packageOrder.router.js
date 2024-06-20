@@ -33,5 +33,8 @@ router.get(
   verify.isStaff,
   PackageOrderController.getAllOrder
 );
-module.expo;
+router.get(
+  "/push-product-order/:packageOrderId",
+  PackageOrderController.pushProductOrder
+);
 module.exports = router;

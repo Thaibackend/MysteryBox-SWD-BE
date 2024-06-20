@@ -43,4 +43,20 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+
+  addProductPackageInPeriod: async (req, res, next) => {
+    try {
+      const { productId, packageInPeriodId } = req.params;
+      const packageInPeriod = await db.PackageInPeriod.findByPk(
+        packageInPeriodId
+      );
+      await packageInPeriod.update({ productId });
+      return res.json({
+        success: true,
+        message: "Chọn sản phẩm gửi thành công",
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };
