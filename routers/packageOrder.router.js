@@ -37,4 +37,6 @@ router.get(
   "/push-product-order/:packageOrderId",
   PackageOrderController.pushProductOrder
 );
+
+router.get("/revenue-week", PackageOrderController.revenueWeekDashboard);
 module.exports = router;

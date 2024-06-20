@@ -1,6 +1,7 @@
 const db = require("../models");
 const createError = require("../utils/error");
-
+const moment = require("moment");
+const { Op } = require("sequelize");
 module.exports = {
   orderPackage: async (req, res, next) => {
     try {
@@ -123,6 +124,71 @@ module.exports = {
       });
     } catch (error) {
       return next(createError(res, 500, error.message));
+    }
+  },
+
+  revenueWeekDashboard: async (req, res, next) => {
+    try {
+      const startOfWeek = moment().startOf("week").toDate();
+      const endOfWeek = moment().endOf("week").toDate();
+
+      const startOfLastWeek = moment()
+        .subtract(1, "weeks")
+        .startOf("week")
+        .toDate();
+      const endOfLastWeek = moment()
+        .subtract(1, "weeks")
+        .endOf("week")
+        .toDate();
+
+      const ordersThisWeek = await db.PackageOrder.findAll({
+        where: {
+          createdAt: {
+            [Op.between]: [startOfWeek, endOfWeek],
+          },
+        },
+      });
+
+      const ordersLastWeek = await db.PackageOrder.findAll({
+        where: {
+          createdAt: {
+            [Op.between]: [startOfLastWeek, endOfLastWeek],
+          },
+        },
+      });
+
+      let countThisWeek = ordersThisWeek.length;
+      let sumMoneyThisWeek = ordersThisWeek.reduce((sum, order) => {
+        const totalPrice = parseFloat(order.totalPrice.replace(/,/g, "")) || 0;
+        return sum + totalPrice;
+      }, 0);
+
+      let sumMoneyLastWeek = ordersLastWeek.reduce((sum, order) => {
+        const totalPrice = parseFloat(order.totalPrice.replace(/,/g, "")) || 0;
+        return sum + totalPrice;
+      }, 0);
+
+      let growthRate = 0;
+      if (sumMoneyLastWeek > 0) {
+        growthRate =
+          ((sumMoneyThisWeek - sumMoneyLastWeek) / sumMoneyLastWeek) * 100;
+      }
+
+      return res.json({
+        success: true,
+        countThisWeek,
+        sumMoneyThisWeek,
+        growthRate,
+      });
+    } catch (error) {
+      console.error("Error in revenueWeekDashboard:", error);
+      return next(
+        createError(
+          res,
+          500,
+          "An error occurred while calculating revenue. Please try again later."
+        )
+      );
     }
   },
 };
