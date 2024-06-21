@@ -31,4 +31,9 @@ router.patch(
   PackageInPeriodController.updateStatusOrder
 );
 
+router.get(
+  "/get-packageinperiod-of-packageorder/:packageOrderId",
+  PackageInPeriodController.getPackageInPeriodOfPackageOrder
+);
+
 module.exports = router;

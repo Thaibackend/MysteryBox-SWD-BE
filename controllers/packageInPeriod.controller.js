@@ -107,4 +107,40 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+
+  getPackageInPeriodOfPackageOrder: async (req, res, next) => {
+    try {
+      const { packageOrderId } = req.params;
+      const packageInPeriods = await db.PackageInPeriod.findAll();
+      const packageOrder = await db.PackageOrder.findByPk(packageOrderId);
+      if (!packageOrder) {
+        return res.status(404).json({ error: "PackageOrder not found" });
+      }
+      const packageDetails = await db.Package.findByPk(packageOrder.packageId);
+      const matchingPackageOrder = packageInPeriods.filter(
+        (packageInPeriod) => packageInPeriod.packageOrderId == packageOrderId
+      );
+      const hasProduct = matchingPackageOrder.filter(
+        (el) => el.productId !== null
+      );
+      const result = await Promise.all(
+        hasProduct.map(async (item) => {
+          const boxDetails = await db.MysteryBox.findByPk(item.boxId);
+          const packageOrderDetails = await db.PackageOrder.findByPk(
+            item.packageOrderId
+          );
+          const productDetails = await db.Product.findByPk(item.productId);
+          return {
+            boxs: boxDetails,
+            packages: packageDetails,
+            packageOrder: packageOrderDetails,
+            productDetails: productDetails,
+          };
+        })
+      );
+      return res.json({ success: true, data: result });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };
