@@ -135,6 +135,7 @@ module.exports = {
             packages: packageDetails,
             packageOrder: packageOrderDetails,
             product: productDetails,
+            status: item.status,
             dates: {
               openingDate: item.openingDate,
               packagingDate: item.packagingDate,
