@@ -134,7 +134,13 @@ module.exports = {
             boxs: boxDetails,
             packages: packageDetails,
             packageOrder: packageOrderDetails,
-            productDetails: productDetails,
+            product: productDetails,
+            dates: {
+              openingDate: item.openingDate,
+              packagingDate: item.packagingDate,
+              deliveryDate: item.deliveryDate,
+              confirmDate: item.confirmDate,
+            },
           };
         })
       );
