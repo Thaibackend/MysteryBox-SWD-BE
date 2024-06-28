@@ -1,9 +1,9 @@
 {
     "development": {
-      "username": "database_be_swd_user",
-      "password": "GnTM0ABf4U97C5PqCk8x2VugG8Xi9k9Y",
-      "database": "database_be_swd",
-      "host": "dpg-cpjr0ff109ks73eqtmbg-a.singapore-postgres.render.com",
+      "username": "db_swd_user",
+      "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
+      "database": "db_swd",
+      "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
       "dialect": "postgres",
       "dialectOptions": {
         "ssl": {
@@ -14,10 +14,10 @@
     },
   
     "production": {
-      "username": "database_be_swd_user",
-      "password": "GnTM0ABf4U97C5PqCk8x2VugG8Xi9k9Y",
-      "database": "database_be_swd",
-      "host": "dpg-cpjr0ff109ks73eqtmbg-a.singapore-postgres.render.com",
+      "username": "db_swd_user",
+      "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
+      "database": "db_swd",
+      "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
       "dialect": "postgres",
       "dialectOptions": {
         "ssl": {
