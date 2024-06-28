@@ -13,8 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Package.init(
     {
-      fromAge: DataTypes.FLOAT,
-      toAge: DataTypes.FLOAT,
+      age: DataTypes.STRING,
       image: DataTypes.STRING,
       name: DataTypes.STRING,
       description: DataTypes.STRING,

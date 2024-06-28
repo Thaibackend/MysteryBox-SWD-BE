@@ -13,8 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   MysteryBox.init(
     {
-      fromAge: DataTypes.FLOAT,
-      toAge: DataTypes.FLOAT,
+      age: DataTypes.STRING,
       name: DataTypes.STRING,
       image: DataTypes.STRING,
       priceAvarage: DataTypes.STRING,

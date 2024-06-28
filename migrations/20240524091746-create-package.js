@@ -9,13 +9,9 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
-      fromAge: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0,
-      },
-      toAge: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0,
+      age: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       image: {
         type: Sequelize.STRING,
