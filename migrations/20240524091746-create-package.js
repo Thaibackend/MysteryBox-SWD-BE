@@ -9,6 +9,14 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
+      fromAge: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      toAge: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
       image: {
         type: Sequelize.STRING,
       },
@@ -19,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
       },
       numberOfSend: {
         type: Sequelize.STRING,

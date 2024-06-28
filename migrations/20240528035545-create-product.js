@@ -9,14 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      boxId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "MysteryBoxes",
-          key: "id",
-        },
-      },
       themeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -24,6 +16,10 @@ module.exports = {
           model: "Themes",
           key: "id",
         },
+      },
+      productCode: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,

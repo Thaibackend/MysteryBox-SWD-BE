@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Package.init(
     {
+      fromAge: DataTypes.FLOAT,
+      toAge: DataTypes.FLOAT,
       image: DataTypes.STRING,
       name: DataTypes.STRING,
       description: DataTypes.STRING,
-      price: DataTypes.STRING,
+      price: DataTypes.FLOAT,
       numberOfSend: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
     },

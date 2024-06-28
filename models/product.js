@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-      boxId: DataTypes.INTEGER,
+      productCode: DataTypes.STRING,
       themeId: DataTypes.INTEGER,
       name: DataTypes.STRING,
       images: {

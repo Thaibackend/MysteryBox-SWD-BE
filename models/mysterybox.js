@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   MysteryBox.init(
     {
+      fromAge: DataTypes.FLOAT,
+      toAge: DataTypes.FLOAT,
       name: DataTypes.STRING,
       image: DataTypes.STRING,
       priceAvarage: DataTypes.STRING,
@@ -20,6 +22,16 @@ module.exports = (sequelize, DataTypes) => {
       qrCode: DataTypes.STRING,
       quantityProInBox: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
+      productsId: {
+        type: DataTypes.TEXT,
+        get() {
+          const rawValue = this.getDataValue("productsId");
+          return rawValue ? JSON.parse(rawValue) : [];
+        },
+        set(array) {
+          this.setDataValue("productsId", JSON.stringify(array));
+        },
+      },
     },
     {
       sequelize,

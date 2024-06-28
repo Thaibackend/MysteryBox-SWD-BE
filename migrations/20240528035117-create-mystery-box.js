@@ -9,6 +9,14 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
+      fromAge: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      toAge: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
       name: {
         type: Sequelize.STRING,
       },
@@ -26,6 +34,9 @@ module.exports = {
       },
       quantityProInBox: {
         type: Sequelize.STRING,
+      },
+      productsId: {
+        type: Sequelize.TEXT,
       },
       status: {
         type: Sequelize.BOOLEAN,
