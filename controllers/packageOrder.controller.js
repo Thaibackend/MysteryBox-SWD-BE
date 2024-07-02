@@ -102,7 +102,7 @@ module.exports = {
         (el) => el.packageOrderId == packageOrderId
       );
       const periodsWithProduct = matchingPeriods.filter(
-        (el) => el.productId !== null
+        (el) => el.status !== "OPEN"
       );
 
       if (periodsWithProduct.length === 0) {
