@@ -31,7 +31,7 @@ module.exports = {
       const age = new Date().getFullYear() - birthDate.getFullYear();
       const mysteryBoxs = await db.MysteryBox.findAll();
       const filterBoxByThemeId = mysteryBoxs.filter(
-        (el) => el.themeId === body.themeId
+        (el) => el.themeId == body.themeId
       );
       const filterBoxByAge = filterBoxByThemeId.filter((el) => {
         const [minAge, maxAge] = el.age.split("-").map(Number);
