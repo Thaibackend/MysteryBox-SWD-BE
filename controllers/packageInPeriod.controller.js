@@ -85,7 +85,9 @@ module.exports = {
       }
 
       const currentDate = new Date();
-      if (status === "packageDate") {
+      if (status === "openingDate") {
+        packgeInPeriod.openingDate = currentDate;
+      } else if (status === "packageDate") {
         packgeInPeriod.packagingDate = currentDate;
       } else if (status === "deliveryDate") {
         packgeInPeriod.deliveryDate = currentDate;
