@@ -21,10 +21,7 @@ router.get(
   PackageInPeriodController.getAllPackageInPeriod
 );
 
-router.get(
-  "/add-product-packageinperiod/:productId/:packageOrderId",
-  PackageInPeriodController.addProductPackageInPeriod
-);
+router.get("/get-box-not-confirm", PackageInPeriodController.getBoxNotConfirm);
 
 router.patch(
   "/update-status-packageinperiod/:packageInPeriodId",
