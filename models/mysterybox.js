@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   MysteryBox.init(
     {
+      themeId: DataTypes.INTEGER,
       age: DataTypes.STRING,
       name: DataTypes.STRING,
       image: DataTypes.STRING,

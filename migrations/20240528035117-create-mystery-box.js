@@ -9,6 +9,13 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
+      themeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Themes",
+          key: "id",
+        },
+      },
       age: {
         type: Sequelize.STRING,
         allowNull: false,
