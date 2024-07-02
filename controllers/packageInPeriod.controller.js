@@ -75,31 +75,31 @@ module.exports = {
 
   updateStatusOrder: async (req, res, next) => {
     try {
-      const { status } = req.body;
+      const { status, updateStatus } = req.body;
       const { packageInPeriodId } = req.params;
-      const packgeInPeriod = await db.PackageInPeriod.findByPk(
+      const packageInPeriod = await db.PackageInPeriod.findByPk(
         packageInPeriodId
       );
-      if (!packgeInPeriod) {
+      if (!packageInPeriod) {
         return next(createError(res, 404, "Không tìm thấy"));
       }
 
       const currentDate = new Date();
       if (status === "openingDate") {
-        packgeInPeriod.openingDate = currentDate;
+        packageInPeriod.openingDate = currentDate;
       } else if (status === "packageDate") {
-        packgeInPeriod.packagingDate = currentDate;
+        packageInPeriod.packagingDate = currentDate;
       } else if (status === "deliveryDate") {
-        packgeInPeriod.deliveryDate = currentDate;
+        packageInPeriod.deliveryDate = currentDate;
       } else if (status === "confirmDate") {
-        packgeInPeriod.confirmDate = currentDate;
+        packageInPeriod.confirmDate = currentDate;
       } else {
         return next(
           createError(res, 400, "Trạng thái truyền xuống không hợp lệ")
         );
       }
-
-      await packgeInPeriod.save();
+      packageInPeriod.status = updateStatus;
+      await packageInPeriod.save();
 
       return res.json({
         success: true,
