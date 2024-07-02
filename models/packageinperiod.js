@@ -13,10 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   PackageInPeriod.init(
     {
-      periodId: DataTypes.INTEGER,
       boxId: DataTypes.INTEGER,
       packageOrderId: DataTypes.INTEGER,
-      productId: DataTypes.INTEGER,
       openingDate: DataTypes.DATE,
       packagingDate: DataTypes.DATE,
       deliveryDate: DataTypes.DATE,
