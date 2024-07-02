@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/create-mysterybox", MysteryBoxController.createMysteryBox); //api
 router.get("/get-mysterybox", MysteryBoxController.getMysteryBox);
-router.get(
+router.post(
   "/get-mysterybox-condition",
   MysteryBoxController.getMysteryBoxCondition
 );
