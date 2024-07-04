@@ -181,4 +181,33 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+
+  getStatusBox: async (req, res, next) => {
+    try {
+      const packageInPeriods = await db.PackageInPeriod.findAll();
+      const boxsNotConfirm = packageInPeriods.filter(
+        (el) => el.status !== "OPEN"
+      );
+      const detailedBoxes = await Promise.all(
+        boxsNotConfirm.map(async (box) => {
+          const boxDetail = await db.MysteryBox.findByPk(box.boxId);
+          const packageDetail = await db.PackageOrder.findByPk(
+            box.packageOrderId
+          );
+          return {
+            ...box.dataValues,
+            boxDetail,
+            packageDetail,
+          };
+        })
+      );
+      return res.json({
+        success: true,
+        message: "Lấy data thành công",
+        packageInPeriods: detailedBoxes,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };

@@ -22,7 +22,7 @@ router.get(
 );
 
 router.get("/get-box-not-confirm", PackageInPeriodController.getBoxNotConfirm);
-
+router.get("/get-status-box", PackageInPeriodController.getStatusBox);
 router.patch(
   "/update-status-packageinperiod/:packageInPeriodId",
   PackageInPeriodController.updateStatusOrder
