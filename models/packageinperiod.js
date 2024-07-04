@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       boxId: DataTypes.INTEGER,
       packageOrderId: DataTypes.INTEGER,
+      address: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      nameOfAdult: DataTypes.STRING,
       openingDate: DataTypes.DATE,
       packagingDate: DataTypes.DATE,
       deliveryDate: DataTypes.DATE,

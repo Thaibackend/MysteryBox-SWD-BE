@@ -25,6 +25,18 @@ module.exports = {
           key: "id",
         },
       },
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      nameOfAdult: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       openingDate: {
         type: Sequelize.DATE,
         allowNull: true,
