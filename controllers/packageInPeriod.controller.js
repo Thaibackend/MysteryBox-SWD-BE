@@ -116,7 +116,7 @@ module.exports = {
       const packageInPeriods = await db.PackageInPeriod.findAll();
       const packageOrder = await db.PackageOrder.findByPk(packageOrderId);
       if (!packageOrder) {
-        return res.status(404).json({ error: "PackageOrder not found" });
+        return res.status(404).json({ error: "Không tìm thấy package" });
       }
       const packageDetails = await db.Package.findByPk(packageOrder.packageId);
       const matchingPackageOrder = packageInPeriods.filter(
@@ -125,6 +125,7 @@ module.exports = {
       const hasProduct = matchingPackageOrder.filter(
         (el) => el.productId !== null
       );
+      hasProduct.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       const result = await Promise.all(
         hasProduct.map(async (item) => {
           const boxDetails = await db.MysteryBox.findByPk(item.boxId);
