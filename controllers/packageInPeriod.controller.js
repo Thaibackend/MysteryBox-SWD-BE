@@ -185,9 +185,18 @@ module.exports = {
 
   getStatusBox: async (req, res, next) => {
     try {
-      const packageInPeriods = await db.PackageInPeriod.findAll();
+      const { status } = req.query;
+      let packageInPeriods = await db.PackageInPeriod.findAll();
+      if (status) {
+        packageInPeriods = packageInPeriods.filter(
+          (el) => el.status === status
+        );
+      }
       const boxsNotConfirm = packageInPeriods.filter(
         (el) => el.status !== "OPEN"
+      );
+      boxsNotConfirm.sort(
+        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
       );
       const detailedBoxes = await Promise.all(
         boxsNotConfirm.map(async (box) => {
@@ -202,6 +211,7 @@ module.exports = {
           };
         })
       );
+
       return res.json({
         success: true,
         message: "Lấy data thành công",
