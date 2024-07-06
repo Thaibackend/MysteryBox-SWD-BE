@@ -2,13 +2,33 @@ const db = require("../models");
 const createError = require("../utils/error");
 module.exports = {
   createMysteryBox: async (req, res, next) => {
+    const transaction = await db.sequelize.transaction();
     try {
       const body = req.body;
-      const newBox = await db.MysteryBox.create(body);
+      const newBox = await db.MysteryBox.create(body, { transaction });
+      const productsId = body.productsId;
+      if (productsId && Array.isArray(productsId)) {
+        for (const productId of productsId) {
+          const product = await db.Product.findByPk(productId, { transaction });
+          if (product) {
+            product.quantity -= 1;
+            if (product.quantity < 0) {
+              throw new Error(
+                `Product ID ${productId} has insufficient quantity.`
+              );
+            }
+            await product.save({ transaction });
+          } else {
+            throw new Error(`Product ID ${productId} not found.`);
+          }
+        }
+      }
+      await transaction.commit();
       return res
         .status(201)
-        .json({ success: true, message: "Tạo box thành công", box: newBox });
+        .json({ success: true, message: "Create Box Success", box: newBox });
     } catch (error) {
+      await transaction.rollback();
       return next(createError(res, 500, error.message));
     }
   },
@@ -17,7 +37,7 @@ module.exports = {
       const mysteryBoxs = await db.MysteryBox.findAll();
       return res.json({
         success: true,
-        message: "Lấy các box thành công",
+        message: "Get Data Success",
         mysteryBoxs,
       });
     } catch (error) {
@@ -39,7 +59,7 @@ module.exports = {
       });
       return res.json({
         success: true,
-        message: "Lấy các box thành công",
+        message: "Get Data Success",
         mysteryBoxs: filterBoxByAge.length > 0 ? filterBoxByAge : mysteryBoxs,
       });
     } catch (error) {

@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const db = require("../models");
 const createError = require("../utils/error");
-const weightedRandomProduct = require("../utils/weightedRandomProduct");
 module.exports = {
   createProduct: async (req, res, next) => {
     try {
@@ -9,7 +8,7 @@ module.exports = {
       const newProduct = await db.Product.create(body);
       return res.status(201).json({
         success: true,
-        message: "Tạo sản phẩm thành công",
+        message: "Create Product Success",
         product: newProduct,
       });
     } catch (error) {
@@ -25,6 +24,7 @@ module.exports = {
       const productWithoutIds = {
         name: product.name,
         images: product.images,
+        age: product.age,
         description: product.description,
         price: product.price,
         quantity: product.quantity,
@@ -40,7 +40,7 @@ module.exports = {
 
       return res.json({
         success: true,
-        message: "Sản phẩm",
+        message: "Get Data Success",
         product: productWithoutIds,
       });
     } catch (error) {
@@ -112,7 +112,7 @@ module.exports = {
       const products = await db.Product.findAll(options);
       return res.json({
         success: true,
-        message: "Lấy dữ liệu sản phẩm thành công",
+        message: "Get data Success",
         products,
       });
     } catch (error) {
@@ -124,12 +124,12 @@ module.exports = {
       const productId = req.params.id;
       const existedProduct = await db.Product.findByPk(productId);
       if (!existedProduct) {
-        return next(createError(res, 404, "Không tìm thấy sản phẩm này"));
+        return next(createError(res, 404, "Product Not Found"));
       }
       await existedProduct.destroy();
       return res.json({
         success: true,
-        message: "Xóa thành công",
+        message: "Delete Product Success",
       });
     } catch (error) {
       return next(createError(res, 500, error.message));
