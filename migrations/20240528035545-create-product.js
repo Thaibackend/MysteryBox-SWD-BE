@@ -39,7 +39,7 @@ module.exports = {
         defaultValue: 0,
       },
       gender: {
-        type: Sequelize.ENUM(["female", "male", "all"]),
+        type: Sequelize.ENUM(["MALE", "FEMALE", "OTHER"]),
         defaultValue: "all",
       },
       color: {
