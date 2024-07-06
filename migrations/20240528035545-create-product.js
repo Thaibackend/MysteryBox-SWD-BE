@@ -40,10 +40,9 @@ module.exports = {
       },
       age: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       gender: {
-        type: Sequelize.ENUM(["MALE", "FEMALE", "OTHER"]),
+        type: Sequelize.STRING,
       },
       color: {
         type: Sequelize.STRING,

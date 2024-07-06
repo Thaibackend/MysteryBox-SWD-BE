@@ -30,10 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       price: DataTypes.FLOAT,
       quantity: DataTypes.FLOAT,
-      gender: {
-        type: DataTypes.ENUM,
-        values: ["MALE", "FEMALE", "OTHER"],
-      },
+      gender: DataTypes.STRING,
       color: DataTypes.STRING,
       type: DataTypes.STRING,
       material: DataTypes.STRING,
