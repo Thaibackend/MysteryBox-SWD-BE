@@ -54,7 +54,7 @@ module.exports = {
 
     try {
       const result = await axios.post(config.endpoint, null, { params: order });
-      return res.status(200).json(result.data);
+      return res.status(200).json({ result: result.data, order });
     } catch (error) {
       console.log(error.message);
     }
