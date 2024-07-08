@@ -9,6 +9,7 @@ const PackageInPeriodRouter = require("./packageInPeriod.router");
 const ProductRouter = require("./product.router");
 const oAuthRouter = require("./oauth.router");
 const userRouter = require("./user.router");
+const paymentRouter = require("./payment.router");
 // const uploadRouter = require("./upload.router");
 const initRouter = (app) => {
   app.use("/api/v1", AuthRouter);
@@ -21,6 +22,7 @@ const initRouter = (app) => {
   app.use("/api/v1", PackageInPeriodRouter);
   app.use("/api/v1", ProductRouter);
   app.use("/api/v1", userRouter);
+  app.use("/api/v1", paymentRouter);
   app.use("/api/auth", oAuthRouter);
 };
 
