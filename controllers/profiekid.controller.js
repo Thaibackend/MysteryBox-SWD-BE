@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 const createError = require("../utils/error");
 module.exports = {
@@ -104,6 +105,40 @@ module.exports = {
           message: "Mở ban tài khoản của con thành công",
         });
       }
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
+  getChooseProfiles: async (req, res, next) => {
+    try {
+      const user = req.user;
+      const ongoingOrders = await db.PackageOrder.findAll({
+        where: {
+          status: { [Op.ne]: "Finished" },
+        },
+        attributes: ["kidId"],
+        group: ["kidId"],
+      });
+      const ongoingKidIds = ongoingOrders.map((order) => order.kidId);
+      const kidProfiles = await db.KidProfile.findAll({
+        where: {
+          userId: user.userId,
+          status: true,
+          id: { [Op.notIn]: ongoingKidIds },
+        },
+      });
+      const adult = await db.User.findByPk(user.userId);
+      const { password, role, status, ...otherDetails } = adult.toJSON();
+      const kidProfileArray = kidProfiles.map((profile) => ({
+        ...profile.toJSON(),
+        adult: otherDetails,
+      }));
+
+      return res.json({
+        success: true,
+        message: "Tài khoản con của bạn đã lấy thành công",
+        kidProfiles: kidProfileArray,
+      });
     } catch (error) {
       return next(createError(res, 500, error.message));
     }
