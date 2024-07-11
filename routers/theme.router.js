@@ -8,4 +8,6 @@ router.post("/create-theme", ThemeController.createTheme);
 router.get("/get-themes", ThemeController.getThemes);
 
 router.patch("/delete-theme/:id", ThemeController.deleteTheme);
+
+router.put("/update-theme/:id", ThemeController.updateTheme);
 module.exports = router;

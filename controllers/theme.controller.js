@@ -68,4 +68,22 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+  updateTheme: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      const theme = await db.Theme.findByPk(id);
+
+      if (!theme) {
+        return next(createError(res, 404, "Theme not found"));
+      }
+      await theme.update(body);
+      return res
+        .status(200)
+        .json({ success: true, message: "Theme updated successfully", theme });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };

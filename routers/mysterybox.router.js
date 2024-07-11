@@ -9,4 +9,6 @@ router.post(
   MysteryBoxController.getMysteryBoxCondition
 );
 
+router.put("/update-box", MysteryBoxController.updateBox);
+
 module.exports = router;

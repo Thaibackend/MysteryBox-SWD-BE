@@ -184,4 +184,26 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+  updateProduct: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      const product = await db.Product.findByPk(id);
+
+      if (!product) {
+        return next(createError(res, 404, "Product not found"));
+      }
+      await product.update(body);
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message: "Product updated successfully",
+          product,
+        });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };
