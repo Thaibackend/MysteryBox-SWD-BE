@@ -19,9 +19,9 @@ module.exports = {
     try {
       const productId = req.params.id;
       const product = await db.Product.findByPk(productId);
-      const box = await db.MysteryBox.findByPk(product.boxId);
       const theme = await db.Theme.findByPk(product.themeId);
       const productWithoutIds = {
+        productCode: product.productCode,
         name: product.name,
         images: product.images,
         age: product.age,
@@ -34,7 +34,6 @@ module.exports = {
         material: product.material,
         origin: product.origin,
         status: product.status,
-        box: box,
         theme: theme,
       };
 
@@ -195,13 +194,11 @@ module.exports = {
         return next(createError(res, 404, "Product not found"));
       }
       await product.update(body);
-      return res
-        .status(200)
-        .json({
-          success: true,
-          message: "Product updated successfully",
-          product,
-        });
+      return res.status(200).json({
+        success: true,
+        message: "Product updated successfully",
+        product,
+      });
     } catch (error) {
       return next(createError(res, 500, error.message));
     }
