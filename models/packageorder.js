@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   PackageOrder.init(
     {
+      codeOrder: DataTypes.STRING,
       kidId: DataTypes.INTEGER,
       packageId: DataTypes.INTEGER,
       totalPrice: DataTypes.STRING,
