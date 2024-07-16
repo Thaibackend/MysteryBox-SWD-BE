@@ -84,4 +84,18 @@ module.exports = {
       return next(createError(res, 500, error.message));
     }
   },
+  getMysteryBoxById: async (req, res, next) => {
+    try {
+      const boxId = req.params.id;
+      const mysteryBoxs = await db.MysteryBox.findAll();
+      const box = mysteryBoxs.filter((box) => box.id === boxId);
+      return res.json({
+        success: true,
+        message: "Get Data Success",
+        box,
+      });
+    } catch (error) {
+      return next(createError(res, 500, error.message));
+    }
+  },
 };
