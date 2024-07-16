@@ -88,7 +88,7 @@ module.exports = {
     try {
       const boxId = req.params.id;
       const mysteryBoxs = await db.MysteryBox.findAll();
-      const box = mysteryBoxs.filter((box) => box.id === boxId);
+      const box = mysteryBoxs.filter((box) => box.id == boxId);
       return res.json({
         success: true,
         message: "Get Data Success",
