@@ -15,11 +15,6 @@ router.get(
   ProfileKidController.getProfileByUserId
 );
 
-router.get(
-  "/get-choose-profiles",
-  verify.verifyToken,
-  ProfileKidController.getChooseProfiles
-);
 router.patch(
   "/update-profile/:id",
   verify.verifyToken,

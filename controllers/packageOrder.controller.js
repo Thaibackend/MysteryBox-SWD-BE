@@ -14,7 +14,7 @@ module.exports = {
 
       return res.status(201).json({
         success: true,
-        messsage: "Add order success",
+        messsage: "Thêm package vào giỏ hàng thành công",
         order: newOrder,
       });
     } catch (error) {
@@ -52,7 +52,7 @@ module.exports = {
       });
       return res.json({
         success: true,
-        message: "Get data success",
+        message: "Lấy dữ liệu package order thành công",
         packageOrders,
       });
     } catch (error) {
@@ -83,7 +83,7 @@ module.exports = {
       });
       return res.json({
         success: true,
-        message: "Add box success",
+        message: "Thêm gói package nhỏ thành công",
         packageOrder: updatePackageOrder,
       });
     } catch (error) {

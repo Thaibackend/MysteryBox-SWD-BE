@@ -1,29 +1,29 @@
 {
-  "development": {
-    "username": "db_swd_user",
-    "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
-    "database": "db_swd",
-    "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
+    "development": {
+      "username": "db_swd_user",
+      "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
+      "database": "db_swd",
+      "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
+      "dialect": "postgres",
+      "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
       }
-    }
-  },
-
-  "production": {
-    "username": "db_swd_user",
-    "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
-    "database": "db_swd",
-    "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
+    },
+  
+    "production": {
+      "username": "db_swd_user",
+      "password": "0RgIzXyVEuVSl4UNn7yNN76htECOsS1p",
+      "database": "db_swd",
+      "host": "dpg-cpvbn23v2p9s7399pigg-a.singapore-postgres.render.com",
+      "dialect": "postgres",
+      "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
       }
     }
   }
-}

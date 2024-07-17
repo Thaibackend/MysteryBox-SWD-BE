@@ -25,9 +25,6 @@ module.exports = {
           key: "id",
         },
       },
-      codeOrder: {
-        type: Sequelize.STRING,
-      },
       totalPrice: {
         type: Sequelize.STRING,
       },
